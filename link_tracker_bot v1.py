@@ -3,33 +3,15 @@ import sys
 import csv
 import io
 import re
-import logging
 import sqlite3
 
 # Third-party imports
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from dotenv import load_dotenv
-from rich.logging import RichHandler
 
 # Load environment variables
 load_dotenv()
-
-# Setup Logging
-logging.basicConfig(
-    level="ERROR",  # Ubah ke DEBUG untuk melihat pesan lebih detail
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    datefmt="[%X]",
-    handlers=[
-        RichHandler(rich_tracebacks=True),
-        logging.StreamHandler()
-    ]
-)
-logger = logging.getLogger("LinkTrackerBot")
-
-# # Tambahkan handler untuk menangkap pesan dari Pyrogram
-# pyrogram_logger = logging.getLogger("pyrogram")
-# pyrogram_logger.setLevel(logging.INFO)
 
 # Configuration
 API_ID = os.getenv("API_ID")
@@ -41,8 +23,9 @@ DATA_DB_PATH = os.getenv("DATA_DB_PATH", "data.db")
 
 # Validate Config
 if not all([API_ID, API_HASH, BOT_TOKEN]):
-    logger.error("Missing API_ID, API_HASH, or BOT_TOKEN in environment variables.")
-    logger.error("Please create a .env file with these values.")
+    print("Missing API_ID, API_HASH, or BOT_TOKEN in environment variables.")
+    print("Please create a .env file with these values.")
+    sys.exit(1)
 
 # Initialize SQLite Database
 def init_database():
@@ -71,7 +54,7 @@ def init_database():
     except sqlite3.OperationalError:
         # Column doesn't exist, add it
         cursor.execute("ALTER TABLE links ADD COLUMN target_chat_id INTEGER")
-        logger.info("Added target_chat_id column to links table")
+        print("Added target_chat_id column to links table")
     
     # Create click_stats table
     cursor.execute('''
@@ -116,7 +99,7 @@ def init_database():
     
     conn.commit()
     conn.close()
-    logger.info(f"SQLite database initialized at {DB_PATH}")
+    print(f"SQLite database initialized at {DB_PATH}")
 
 def init_user_database():
     """Initialize data.db for users, groups, and members tracking."""
@@ -174,7 +157,7 @@ def init_user_database():
     
     conn.commit()
     conn.close()
-    logger.info(f"Data database initialized at {DATA_DB_PATH}")
+    print(f"Data database initialized at {DATA_DB_PATH}")
 
 # Initialize database on startup
 try:
@@ -189,7 +172,8 @@ app = Client(
     "link_tracker_bot",
     api_id=API_ID,
     api_hash=API_HASH,
-    bot_token=BOT_TOKEN
+    bot_token=BOT_TOKEN,
+    in_memory=True,
 )
 
 # --- Helper Functions ---

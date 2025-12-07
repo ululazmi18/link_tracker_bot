@@ -55,7 +55,7 @@ def init_database():
     try:
         cursor.execute("SELECT group_username FROM links LIMIT 1")
     except sqlite3.OperationalError:
-        logger.info("Migrating links table: adding group_username and group_id")
+        print("Migrating links table: adding group_username and group_id")
         cursor.execute("ALTER TABLE links ADD COLUMN group_username TEXT")
         cursor.execute("ALTER TABLE links ADD COLUMN group_id INTEGER")
     
@@ -101,7 +101,7 @@ def init_database():
     
     conn.commit()
     conn.close()
-    logger.info(f"SQLite database initialized at {DB_PATH}")
+    print(f"SQLite database initialized at {DB_PATH}")
 
 def init_user_database():
     """Initialize data.db for users, groups, and members tracking."""
@@ -159,14 +159,14 @@ def init_user_database():
     
     conn.commit()
     conn.close()
-    logger.info(f"Data database initialized at {DATA_DB_PATH}")
+    print(f"Data database initialized at {DATA_DB_PATH}")
 
 # Initialize database on startup
 try:
     init_database()
     init_user_database()
 except Exception as e:
-    logger.error(f"Failed to initialize database: {e}")
+    print(f"Failed to initialize database: {e}")
     sys.exit(1)
 
 # Initialize Pyrogram Client
@@ -227,7 +227,7 @@ def track_user(user):
         conn.commit()
         conn.close()
     except Exception as e:
-        logger.error(f"Error tracking user: {e}")
+        print(f"Error tracking user: {e}")
 
 def save_group_to_db(chat):
     """Save/update group information to data.db."""
@@ -250,7 +250,7 @@ def save_group_to_db(chat):
         conn.commit()
         conn.close()
     except Exception as e:
-        logger.error(f"Error saving group: {e}")
+        print(f"Error saving group: {e}")
 
 def save_member_to_db(chat_id: int, user):
     """Save/update member information to data.db (passive tracking)."""
@@ -286,7 +286,7 @@ def save_member_to_db(chat_id: int, user):
         conn.commit()
         conn.close()
     except Exception as e:
-        logger.error(f"Error saving member: {e}")
+        print(f"Error saving member: {e}")
 
 def get_link_from_db(link_id: str):
     """Retrieve link from SQLite database."""
@@ -463,7 +463,7 @@ async def start_handler(client: Client, message: Message):
             try:
                 log_click(link_id, message.from_user, source)
             except Exception as e:
-                logger.error(f"Error logging click: {e}")
+                print(f"Error logging click: {e}")
             
             await message.reply_text(
                 f"🔗 **Redirecting to @{username_target}...**\n\n[Click here to open]({original_link})",
@@ -549,7 +549,7 @@ async def text_handler(client: Client, message: Message):
                 group_id=chat_id
             )
         except Exception as e:
-            logger.error(f"DB Error: {e}")
+            print(f"DB Error: {e}")
             await message.reply_text("An error occurred while saving the link.")
             user_states.pop(user_id, None)
             return
@@ -833,7 +833,7 @@ async def export_callback(client: Client, callback_query):
         await callback_query.message.delete()
         
     except Exception as e:
-        logger.error(f"Error in export handler: {e}")
+        print(f"Error in export handler: {e}")
         await callback_query.message.edit_text(f"❌ An error occurred: {str(e)[:100]}")
 
 
@@ -868,7 +868,7 @@ async def activity_handler(client: Client, message: Message):
                 activity_count = cursor.fetchone()[0]
                 conn.close()
             except Exception as e:
-                logger.error(f"Error counting activity for {doc_id}: {e}")
+                print(f"Error counting activity for {doc_id}: {e}")
                 activity_count = 0
             
             btn_text = f"@{data.get('username_target')} ({activity_count} activities)"
@@ -879,7 +879,7 @@ async def activity_handler(client: Client, message: Message):
             reply_markup=InlineKeyboardMarkup(buttons)
         )
     except Exception as e:
-        logger.error(f"Error in activity handler: {e}")
+        print(f"Error in activity handler: {e}")
         await message.reply_text("An error occurred. Please try again later.")
 
 @app.on_callback_query(filters.regex(r"^activity_"))
@@ -959,7 +959,7 @@ async def activity_callback(client: Client, callback_query):
         
         await callback_query.message.delete()
     except Exception as e:
-        logger.error(f"Error in activity callback: {e}")
+        print(f"Error in activity callback: {e}")
         await callback_query.message.edit_text("An error occurred generating the file.")
 
 @app.on_message(filters.command("deletelink"))
@@ -1115,7 +1115,7 @@ async def monitor_group_activity(client: Client, message: Message):
             )
 
     except Exception as e:
-        logger.error(f"Error monitoring group activity: {e}")
+        print(f"Error monitoring group activity: {e}")
 
 
 if __name__ == "__main__":
