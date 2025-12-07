@@ -1,39 +1,37 @@
-# Link Tracker Bot for Telegram
+# Telegram Link Tracker Bot
 
-Bot Telegram untuk melacak tautan dengan fitur pelacakan klik, analitik, dan manajemen tautan yang mudah.
+Bot Telegram untuk melacak tautan dengan fitur analitik lengkap dan manajemen pengguna.
 
-## 🚀 Fitur Utama
+## Fitur Utama
 
-- **Pelacakan Tautan**: Buat tautan pendek yang dapat dilacak
-- **Analitik Detail**: Lacak jumlah klik, lokasi, dan waktu akses
-- **Manajemen Tautan**: Kelola tautan Anda dengan mudah
-- **Ekspor Data**: Ekspor data klik ke format CSV
-- **Pemantauan Aktivitas**: Lacak aktivitas pengguna di grup/channel
-- **Multi-grup**: Dukungan untuk beberapa grup dan channel
-- **Database SQLite**: Penyimpanan data yang andal
+- 🎯 Lacak klik pada tautan yang dibagikan
+- 📊 Statistik klik terperinci
+- 👥 Manajemen grup dan pengguna
+- 📊 Ekspor data ke CSV
+- 🔍 Pantau aktivitas pengguna
+- 🔗 Dukungan deep linking
+- 📱 Antarmuka pengguna yang interaktif
 
-## 🛠️ Persyaratan
+## Persyaratan Sistem
 
 - Python 3.7+
 - Pyrogram
 - python-dotenv
-- rich (untuk logging yang lebih baik)
-- SQLite3 (terinstal secara default dengan Python)
 
-## ⚙️ Instalasi
+## Instalasi
 
 1. Clone repositori ini:
    ```bash
-   git clone https://github.com/ululazmi18/link_tracker_bot.git
-   cd link_tracker_bot
+   git clone [URL_REPOSITORY]
+   cd bot
    ```
 
-2. Buat environment virtual (disarankan):
+2. Buat virtual environment (disarankan):
    ```bash
    python -m venv venv
-   .\venv\Scripts\activate  # Windows
-   # Atau
    source venv/bin/activate  # Linux/Mac
+   # atau
+   .\venv\Scripts\activate  # Windows
    ```
 
 3. Install dependencies:
@@ -41,7 +39,7 @@ Bot Telegram untuk melacak tautan dengan fitur pelacakan klik, analitik, dan man
    pip install -r requirements.txt
    ```
 
-4. Buat file `.env` dengan konfigurasi berikut:
+4. Buat file `.env` dan isi dengan konfigurasi Anda:
    ```env
    API_ID=your_api_id
    API_HASH=your_api_hash
@@ -51,51 +49,32 @@ Bot Telegram untuk melacak tautan dengan fitur pelacakan klik, analitik, dan man
    DATA_DB_PATH=data.db
    ```
 
-## 🚀 Cara Menggunakan
+## Cara Menggunakan
 
-1. Jalankan bot:
+1. Mulai bot dengan perintah:
    ```bash
-   python bot/link_tracker_bot.py
+   python link_tracker_bot.py
    ```
 
-2. Mulai obrolan dengan bot Anda di Telegram dan gunakan perintah berikut:
+2. Di Telegram, mulai chat dengan bot Anda dan gunakan perintah berikut:
 
-   - `/start` - Memulai bot dan menampilkan menu bantuan
-   - `/addlink` - Menambahkan tautan baru untuk dilacak
-   - `/mylinks` - Melihat daftar tautan yang Anda kelola
-   - `/export` - Mengekspor data klik ke CSV
-   - `/activity` - Melihat aktivitas pengguna
-   - `/deletelink` - Menghapus tautan yang dilacak
+   - `/start` - Mulai bot dan lihat menu utama
+   - `/addlink` - Tambah tautan baru untuk dilacak
+   - `/mylinks` - Lihat daftar tautan yang Anda lacak
+   - `/export` - Ekspor statistik klik
+   - `/activity` - Lihat aktivitas pengguna
+   - `/deletelink` - Hapus tautan yang dilacak
 
-## 📊 Struktur Database
+## Database
 
 Bot menggunakan dua database SQLite:
-1. `link_tracker.db` - Menyimpan informasi tautan dan pelacakan klik
-2. `data.db` - Menyimpan data pengguna, grup, dan aktivitas
+- `link_tracker.db` - Menyimpan data tautan dan statistik
+- `data.db` - Menyimpan data pengguna dan grup
 
-## 🤖 Perintah yang Tersedia
+## Kontribusi
 
-- **/start** - Memulai bot dan menampilkan menu bantuan
-- **/addlink** - Tambahkan tautan baru untuk dilacak
-- **/mylinks** - Lihat daftar tautan yang Anda kelola
-- **/export** - Ekspor data klik ke CSV
-- **/activity** - Lihat aktivitas pengguna
-- **/deletelink** - Hapus tautan yang dilacak
+Kontribusi terbuka! Silakan buat issue atau pull request untuk fitur baru atau perbaikan bug.
 
-## 📝 Catatan
+## Lisensi
 
-- Bot ini menggunakan Pyrogram, pastikan Anda telah mengatur API ID dan hash dengan benar
-- Database SQLite akan dibuat secara otomatis saat pertama kali dijalankan
-- Pastikan untuk menjaga file database tetap aman dan rahasia
-
-## 📄 Lisensi
-
-Proyek ini dilisensikan di bawah [MIT License](LICENSE).
-
-## 🤝 Berkontribusi
-
-Kontribusi selalu diterima! Jangan ragu untuk membuka issue atau pull request.
-
----
-
-Dibuat dengan ❤️ oleh [Ulul Azmi](https://github.com/ululazmi18)
+[MIT License](LICENSE)
