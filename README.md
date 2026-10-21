@@ -1,80 +1,71 @@
-# Telegram Link Tracker Bot
+<div align="center">
 
-Bot Telegram untuk melacak tautan dengan fitur analitik lengkap dan manajemen pengguna.
+# 🔗 Telegram Link Tracker Bot
+### *Advanced Link Analytics, Click Tracking, & User Engagement Bot for Telegram*
 
-## Fitur Utama
+[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Library](https://img.shields.io/badge/Library-Pyrogram-0088cc?style=for-the-badge&logo=telegram)](https://docs.pyrogram.org/)
+[![Deploy](https://img.shields.io/badge/Deploy-Railway_%7C_Docker-0B0D0E?style=for-the-badge&logo=railway)](https://railway.app)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-- 🎯 Lacak klik pada tautan yang dibagikan
-- 📊 Statistik klik terperinci
-- 👥 Manajemen grup dan pengguna
-- 📊 Ekspor data ke CSV
-- 🔍 Pantau aktivitas pengguna
-- 🔗 Dukungan deep linking
-- 📱 Antarmuka pengguna yang interaktif
+</div>
 
-## Persyaratan Sistem
+---
 
-- Python 3.7+
-- Pyrogram
-- python-dotenv
+## 🎯 Gambaran Umum (Overview)
 
-## Instalasi
+**Telegram Link Tracker Bot** adalah bot analitik lengkap yang dirancang untuk memantau, melacak jumlah klik, dan mencatat metrik konversi tautan yang dibagikan ke dalam grup, channel, atau kampanye pemasaran Telegram.
 
-1. Clone repositori ini:
+---
+
+## 🚀 Fitur Utama (Key Features)
+
+- 🎯 **Pelacakan Klik Real-Time:** Menghasilkan tautan unik (*deep linking*) untuk melacak performa traffic.
+- 📊 **Statistik Terperinci:** Menampilkan jumlah total klik, klik unik per pengguna, dan waktu akses.
+- 👥 **Manajemen Pengguna & Grup:** Mengelompokkan statistik berdasarkan grup atau kampanye spesifik.
+- 📥 **Ekspor Data ke CSV:** Unduh laporan statistik kapan saja dalam format CSV.
+- 🐳 **Siap Deploy:** Dilengkapi dengan `Dockerfile` dan `Procfile` untuk deployment 1-klik di **Railway**, **Render**, atau **VPS**.
+
+---
+
+## 🛠️ Instalasi & Konfigurasi
+
+1. **Clone Repositori:**
    ```bash
-   git clone [URL_REPOSITORY]
-   cd bot
+   git clone https://github.com/ululazmi18/link_tracker_bot.git
+   cd link_tracker_bot
    ```
 
-2. Buat virtual environment (disarankan):
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # Linux/Mac
-   # atau
-   .\venv\Scripts\activate  # Windows
-   ```
-
-3. Install dependencies:
+2. **Pasang Dependensi:**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Buat file `.env` dan isi dengan konfigurasi Anda:
+3. **Buat File Konfigurasi `.env`:**
+   Salin `.env.example` menjadi `.env` dan isi token Anda:
    ```env
-   API_ID=your_api_id
-   API_HASH=your_api_hash
-   BOT_TOKEN=your_bot_token
-   BOT_USERNAME=your_bot_username
-   DB_PATH=link_tracker.db
-   DATA_DB_PATH=data.db
+   API_ID=12345678
+   API_HASH=abcdef1234567890abcdef1234567890
+   BOT_TOKEN=123456789:ABCDEF...
+   BOT_USERNAME=MyLinkTrackerBot
    ```
 
-## Cara Menggunakan
-
-1. Mulai bot dengan perintah:
+4. **Jalankan Bot:**
    ```bash
-   python link_tracker_bot.py
+   python main.py
    ```
 
-2. Di Telegram, mulai chat dengan bot Anda dan gunakan perintah berikut:
+---
 
-   - `/start` - Mulai bot dan lihat menu utama
-   - `/addlink` - Tambah tautan baru untuk dilacak
-   - `/mylinks` - Lihat daftar tautan yang Anda lacak
-   - `/export` - Ekspor statistik klik
-   - `/activity` - Lihat aktivitas pengguna
-   - `/deletelink` - Hapus tautan yang dilacak
+## 🐳 Deployment via Docker
 
-## Database
+```bash
+docker build -t link-tracker-bot .
+docker run -d --env-file .env link-tracker-bot
+```
 
-Bot menggunakan dua database SQLite:
-- `link_tracker.db` - Menyimpan data tautan dan statistik
-- `data.db` - Menyimpan data pengguna dan grup
+---
 
-## Kontribusi
+## 📄 Lisensi (License)
 
-Kontribusi terbuka! Silakan buat issue atau pull request untuk fitur baru atau perbaikan bug.
-
-## Lisensi
-
-[MIT License](LICENSE)
+Didistribusikan di bawah Lisensi **MIT**. Dibuat oleh [**Ulul Azmi**](https://github.com/ululazmi18).
